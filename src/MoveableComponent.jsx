@@ -45,11 +45,12 @@ const MovableInputBox = () => {
       const originalBackgroundColor = await containerDiv.style.backgroundColor;
       containerDiv.style.backgroundColor = await 'transparent';
 
-      let scale = 5; // Start with a higher scale
+      let scale = 2; // Start with a lower scale
       let imageSize = 0;
       let blob;
 
-      while (imageSize < 10 * 1024 * 1024) { 
+      // Reduce the scale increments for faster calculation
+      while (imageSize < 3 * 1024 * 1024 && scale <= 5) { 
         const canvas = await html2canvas(containerDiv, {
           useCORS: true,
           backgroundColor: null,
@@ -111,7 +112,7 @@ const MovableInputBox = () => {
                 color: '#e2a93f',
                 fontSize: '16px',
                 fontWeight: 'bold',
-                fontStyle: 'italic',
+                // fontStyle: 'italic',
                 letterSpacing: '1px',
               }}
               className="w-4/5 px-1.5 py-1.5 border-[1px] border-gray-300 rounded bg-transparent placeholder-gray-500 text-center"
@@ -123,18 +124,16 @@ const MovableInputBox = () => {
           </div>
         </div>
         <div
-          className={`${!imageType ? '-mt-[3rem]' : 'sm:mt-[12rem] mt-[8rem] mr-[5rem]'}`}
+          className={` h-[100px] text-center ${!imageType ? '-mt-[3rem]' : 'sm:mt-[12rem] mt-[8rem] mr-[3rem] w-[120px]'}`}
           style={{
             color: '#e2a93f',
-            fontSize: '16px',
+            fontSize: '18px',
             fontWeight: 'bold',
-            fontStyle: 'italic',
+            // fontStyle: 'italic',
             letterSpacing: '1px',
           }}
         >
-          {printedTexts.split(' ').map((word, index) => (
-            <div key={index}>{word}</div>
-          ))}
+          {printedTexts}
         </div>
       </div>
 
